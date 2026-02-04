@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Creator Portfolio</title>
+    
+    <!-- Tailwind CSS (デザイン用) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (アイコン用) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- カスタム設定 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // ダークモード設定
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 横スクロールバーを隠すユーティリティ */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* アニメーション用 */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-200 font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 antialiased dark">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-neutral-950/80 backdrop-blur-md z-40 border-b border-neutral-800 transition-colors duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i data-lucide="play" class="w-4 h-4 text-white fill-current"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white" id="header-title">STUDIO NAME</span>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#works" class="hover:text-indigo-400 transition-colors nav-link">Works</a>
+                <a href="#about" class="hover:text-indigo-400 transition-colors nav-link">About</a>
+                <button id="theme-toggle" class="p-2 rounded-full transition-colors hover:bg-neutral-800 text-yellow-400">
+                    <i data-lucide="sun" class="w-5 h-5 theme-icon"></i>
+                </button>
+                <a href="mailto:contact@example.com" class="px-4 py-2 bg-white text-neutral-950 hover:bg-neutral-200 rounded-full transition-colors font-bold btn-contact">
+                    Contact Me
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center gap-4 md:hidden">
+                <button id="theme-toggle-mobile" class="p-2 rounded-full transition-colors text-yellow-400">
+                    <i data-lucide="sun" class="w-5 h-5 theme-icon"></i>
+                </button>
+                <button id="mobile-menu-btn" class="p-2 text-white mobile-menu-icon">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 w-full bg-neutral-900 border-b border-neutral-800 p-4 flex flex-col gap-4 shadow-xl">
+            <a href="#works" class="block px-4 py-2 text-lg font-medium text-white mobile-link">Works</a>
+            <a href="#about" class="block px-4 py-2 text-lg font-medium text-white mobile-link">About</a>
+            <a href="mailto:contact@example.com" class="block px-4 py-3 bg-indigo-600 text-white text-center rounded-lg font-bold">Contact Me</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 hero-title">
+            Visual Storytelling<br />
+            <span class="text-neutral-500">that moves people.</span>
+        </h1>
+        <p class="text-lg text-neutral-400 max-w-2xl mb-8 leading-relaxed hero-text">
+            映像ディレクター・ビデオグラファーのポートフォリオサイトです。<br/>
+            企業VP、WebCM、ミュージックビデオなど、目的と課題に合わせた映像制作を行います。
+        </p>
+    </section>
+
+    <!-- Filter & Search Bar -->
+    <section id="works" class="sticky top-16 z-30 bg-neutral-950/95 py-4 border-b border-neutral-800 transition-colors duration-300" id="filter-bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                
+                <!-- Categories -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0" id="category-container">
+                    <!-- Javascriptでボタンを生成します -->
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative group w-full md:w-64">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-indigo-500 transition-colors"></i>
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        placeholder="キーワード検索..." 
+                        class="w-full bg-neutral-900 border border-neutral-800 text-sm text-white pl-10 pr-4 py-2.5 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all placeholder:text-neutral-500 shadow-sm search-input-style"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+            <!-- Javascriptでプロジェクトカードを生成します -->
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden py-20 text-center">
+            <i data-lucide="filter" class="w-12 h-12 text-neutral-700 mx-auto mb-4 icon-color"></i>
+            <p class="text-neutral-500 text-lg sub-text">該当する実績が見つかりませんでした。</p>
+            <button id="clear-search" class="mt-4 text-indigo-500 hover:text-indigo-400 text-sm font-medium">条件をクリアする</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="border-t border-neutral-800 bg-neutral-900 mt-20 transition-colors duration-300 footer-style">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-6 footer-heading">Contact</h2>
+                    <p class="text-neutral-400 mb-8 leading-relaxed footer-text">
+                        映像制作のご依頼・ご相談はこちらからお気軽にご連絡ください。<br/>
+                        通常2営業日以内に返信いたします。
+                    </p>
+                    <a href="mailto:contact@example.com" class="inline-flex items-center gap-3 bg-white text-neutral-950 px-6 py-3 rounded-lg font-bold hover:bg-neutral-200 transition-colors shadow-md btn-contact-footer">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        お問い合わせを送る
+                    </a>
+                </div>
+                
+                <div class="flex flex-col gap-6 md:items-end">
+                    <div class="text-right">
+                        <h3 class="text-lg font-bold text-white mb-4 footer-heading">Follow Me</h3>
+                        <div class="flex gap-4 md:justify-end">
+                            <a href="#" class="p-2 bg-neutral-800 rounded-full hover:bg-indigo-600 hover:text-white transition-all text-neutral-400 social-icon">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="p-2 bg-neutral-800 rounded-full hover:bg-pink-600 hover:text-white transition-all text-neutral-400 social-icon">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-neutral-500 text-sm mt-auto footer-copy">
+                        &copy; 2024 Video Creator Portfolio. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4">
+        <div id="modal-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
+        
+        <div class="relative w-full max-w-4xl bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 transform transition-all modal-content-style">
+            <!-- Modal Header/Video Area -->
+            <div class="relative aspect-video bg-black group">
+                <button id="modal-close" class="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover opacity-60">
+                
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <button class="flex items-center gap-3 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg">
+                        <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                        再生する
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-8">
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2 text-sm text-indigo-500 font-medium">
+                            <span id="modal-client"></span>
+                            <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                            <span id="modal-type"></span>
+                            <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                            <span id="modal-year"></span>
+                        </div>
+                        <h2 id="modal-title" class="text-2xl md:text-3xl font-bold text-white mb-4 modal-heading"></h2>
+                        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <a id="modal-link" href="#" target="_blank" class="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors shrink-0 modal-external-link">
+                        外部サイトで見る <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <div class="prose max-w-none">
+                    <p id="modal-desc" class="text-neutral-400 leading-relaxed modal-text"></p>
+                    <div class="mt-6 pt-6 border-t border-neutral-800 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm modal-meta-border">
+                        <div>
+                            <span class="block text-neutral-500 mb-1">Role</span>
+                            <span class="text-white modal-meta-val">Director / Editor</span>
+                        </div>
+                        <div>
+                            <span class="block text-neutral-500 mb-1">Camera</span>
+                            <span class="text-white modal-meta-val">Sony FX6</span>
+                        </div>
+                        <div>
+                            <span class="block text-neutral-500 mb-1">Tools</span>
+                            <span class="text-white modal-meta-val">Premiere / AfterEffects</span>
+                        </div>
+                        <div>
+                            <span class="block text-neutral-500 mb-1">Duration</span>
+                            <span class="text-white modal-meta-val">2:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- データ定義 (ここを編集して実績を追加できます) ---
+        const PORTFOLIO_DATA = [
+            {
+                id: 1,
+                title: "株式会社A 新卒採用ムービー",
+                client: "株式会社A",
+                category: "Corporate",
+                type: "実写ドラマ",
+                tags: ["採用", "ブランディング", "実写", "4K"],
+                description: "新卒採用に向けたコンセプトムービー。社員の1日に密着し、ドキュメンタリータッチで描きました。",
+                thumbnail: "https://placehold.co/800x450/222/FFF?text=Recruit+Movie",
+                videoUrl: "#",
+                year: "2024"
+            },
+            {
+                id: 2,
+                title: "Brand B WebCM 'Summer'",
+                client: "Brand B",
+                category: "CM",
+                type: "モーショングラフィックス",
+                tags: ["SNS広告", "短尺", "アニメーション"],
+                description: "夏の新商品プロモーション用WebCM。Instagram等のSNSでの展開を想定した正方形フォーマット対応。",
+                thumbnail: "https://placehold.co/800x450/333/FFF?text=Web+CM",
+                videoUrl: "#",
+                year: "2024"
+            },
+            {
+                id: 3,
+                title: "Artist C 'Night Walk' MV",
+                client: "Label C",
+                category: "MV",
+                type: "実写 + VFX",
+                tags: ["ミュージックビデオ", "CG合成", "演出"],
+                description: "深夜の街を舞台にしたミュージックビデオ。実写映像にネオン風のVFXを合成し、幻想的な世界観を表現。",
+                thumbnail: "https://placehold.co/800x450/111/FFF?text=Music+Video",
+                videoUrl: "#",
+                year: "2023"
+            },
+            {
+                id: 4,
+                title: "Tech Startup サービス紹介",
+                client: "Startup D",
+                category: "Service",
+                type: "インフォグラフィックス",
+                tags: ["展示会", "サービス解説", "BtoB"],
+                description: "SaaS製品の機能解説動画。展示会でのループ再生を想定し、ナレーションなしでも伝わる構成に。",
+                thumbnail: "https://placehold.co/800x450/444/FFF?text=Service+Intro",
+                videoUrl: "#",
+                year: "2023"
+            },
+            {
+                id: 5,
+                title: "Documentary: Local Craftsman",
+                client: "City E",
+                category: "Documentary",
+                type: "インタビュー",
+                tags: ["自治体", "観光", "インタビュー"],
+                description: "伝統工芸士へのインタビュー映像。地域の魅力を海外へ発信するための英語字幕付きコンテンツ。",
+                thumbnail: "https://placehold.co/800x450/2a2a2a/FFF?text=Documentary",
+                videoUrl: "#",
+                year: "2022"
+            },
+            {
+                id: 6,
+                title: "Fashion Brand F Lookbook",
+                client: "Brand F",
+                category: "CM",
+                type: "イメージビデオ",
+                tags: ["ファッション", "シネマティック", "EC"],
+                description: "秋冬コレクションのルックブック映像。質感と色味にこだわり、シネマティックなカラーグレーディングを実施。",
+                thumbnail: "https://placehold.co/800x450/1a1a1a/FFF?text=Fashion+Movie",
+                videoUrl: "#",
+                year: "2024"
+            }
+        ];
+
+        const CATEGORIES = [
+            { id: 'All', label: 'ALL' },
+            { id: 'Corporate', label: 'Corporate / 採用' },
+            { id: 'CM', label: 'Web CM / 広告' },
+            { id: 'MV', label: 'Music Video' },
+            { id: 'Documentary', label: 'Documentary' },
+        ];
+
+        // --- 状態管理変数 ---
+        let activeCategory = 'All';
+        let searchQuery = '';
+        let isDarkMode = true;
+
+        // --- DOM要素の取得 ---
+        const projectsGrid = document.getElementById('projects-grid');
+        const categoryContainer = document.getElementById('category-container');
+        const searchInput = document.getElementById('search-input');
+        const noResults = document.getElementById('no-results');
+        const clearSearchBtn = document.getElementById('clear-search');
+        
+        // テーマ切り替え要素
+        const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        const body = document.body;
+        const themeIcons = document.querySelectorAll('.theme-icon');
+
+        // モーダル要素
+        const modal = document.getElementById('modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalClose = document.getElementById('modal-close');
+
+        // --- 初期化 ---
+        function init() {
+            renderCategories();
+            renderProjects();
+            lucide.createIcons();
+            updateTheme();
+        }
+
+        // --- レンダリング: カテゴリボタン ---
+        function renderCategories() {
+            categoryContainer.innerHTML = CATEGORIES.map(cat => {
+                const isActive = activeCategory === cat.id;
+                const baseClass = "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all shadow-sm";
+                // ダークモード/ライトモードに応じたクラス分けはJS側で制御
+                let colorClass = "";
+                if (isActive) {
+                    colorClass = "bg-indigo-600 text-white";
+                } else {
+                    colorClass = isDarkMode 
+                        ? "bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white"
+                        : "bg-white text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 border border-neutral-200";
+                }
+                
+                return `<button onclick="setCategory('${cat.id}')" class="${baseClass} ${colorClass}">${cat.label}</button>`;
+            }).join('');
+        }
+
+        // --- レンダリング: プロジェクト一覧 ---
+        function renderProjects() {
+            const lowerQuery = searchQuery.toLowerCase();
+            const filtered = PORTFOLIO_DATA.filter(p => {
+                const catMatch = activeCategory === 'All' || p.category === activeCategory;
+                const searchMatch = 
+                    p.title.toLowerCase().includes(lowerQuery) ||
+                    p.client.toLowerCase().includes(lowerQuery) ||
+                    p.type.toLowerCase().includes(lowerQuery) ||
+                    p.tags.some(t => t.toLowerCase().includes(lowerQuery));
+                return catMatch && searchMatch;
+            });
+
+            if (filtered.length === 0) {
+                projectsGrid.innerHTML = '';
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                projectsGrid.innerHTML = filtered.map(project => {
+                    // テーマに応じたカードスタイル
+                    const cardBg = isDarkMode ? 'bg-neutral-800' : 'bg-neutral-200';
+                    const hoverBorder = isDarkMode ? 'group-hover:border-neutral-600' : 'group-hover:border-indigo-300';
+                    const borderColor = isDarkMode ? 'border-neutral-800' : 'border-neutral-200';
+                    const textColor = isDarkMode ? 'text-white' : 'text-neutral-900';
+                    const tagBg = isDarkMode ? 'bg-neutral-900 text-neutral-400 border-neutral-800' : 'bg-neutral-100 text-neutral-600 border-neutral-200';
+
+                    return `
+                    <div onclick="openModal(${project.id})" class="group cursor-pointer flex flex-col gap-3">
+                        <div class="relative aspect-video ${cardBg} rounded-xl overflow-hidden border ${borderColor} ${hoverBorder} transition-colors shadow-sm">
+                            <img src="${project.thumbnail}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="w-12 h-12 bg-indigo-600/90 rounded-full flex items-center justify-center backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+                                    <i data-lucide="play" class="w-5 h-5 text-white fill-current ml-0.5"></i>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-xs font-medium text-white border border-white/10">
+                                ${project.type}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-neutral-500 mb-1">
+                                <span>${project.client}</span>
+                                <span>${project.year}</span>
+                            </div>
+                            <h3 class="text-lg font-bold ${textColor} leading-tight group-hover:text-indigo-500 transition-colors">
+                                ${project.title}
+                            </h3>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                ${project.tags.map(tag => `<span class="text-xs px-2 py-1 rounded border ${tagBg}">#${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+                lucide.createIcons(); // 新しく生成された要素のアイコンを描画
+            }
+        }
+
+        // --- 操作ロジック ---
+        function setCategory(id) {
+            activeCategory = id;
+            renderCategories(); // ボタンの色更新のため再描画
+            renderProjects();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProjects();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchQuery = '';
+            searchInput.value = '';
+            activeCategory = 'All';
+            renderCategories();
+            renderProjects();
+        });
+
+        // --- テーマ切り替えロジック ---
+        themeToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                updateTheme();
+            });
+        });
+
+        function updateTheme() {
+            const elements = {
+                body: document.body,
+                header: document.getElementById('main-header'),
+                headerTitle: document.getElementById('header-title'),
+                heroTitle: document.querySelector('.hero-title'),
+                filterBar: document.getElementById('filter-bar'),
+                searchInput: document.getElementById('search-input'),
+                footer: document.querySelector('footer'),
+                modalContent: document.querySelector('.modal-content-style'),
+                footerHeadings: document.querySelectorAll('.footer-heading'),
+                navLinks: document.querySelectorAll('.nav-link'),
+                contactBtn: document.querySelector('.btn-contact'),
+                contactFooter: document.querySelector('.btn-contact-footer'),
+            };
+
+            // Body
+            if (isDarkMode) {
+                elements.body.classList.remove('bg-neutral-50', 'text-neutral-700');
+                elements.body.classList.add('bg-neutral-950', 'text-neutral-200');
+                
+                // Header
+                elements.header.classList.remove('bg-white/80', 'border-neutral-200');
+                elements.header.classList.add('bg-neutral-950/80', 'border-neutral-800');
+                elements.headerTitle.classList.remove('text-neutral-900');
+                elements.headerTitle.classList.add('text-white');
+                
+                // Hero
+                elements.heroTitle.classList.remove('text-neutral-900');
+                elements.heroTitle.classList.add('text-white');
+                
+                // Filter
+                elements.filterBar.classList.remove('bg-neutral-50/95', 'border-neutral-200');
+                elements.filterBar.classList.add('bg-neutral-950/95', 'border-neutral-800');
+                
+                // Input
+                elements.searchInput.classList.remove('bg-white', 'border-neutral-300', 'text-neutral-900');
+                elements.searchInput.classList.add('bg-neutral-900', 'border-neutral-800', 'text-white');
+
+                // Footer
+                elements.footer.classList.remove('bg-neutral-100', 'border-neutral-200');
+                elements.footer.classList.add('bg-neutral-900', 'border-neutral-800');
+                elements.footerHeadings.forEach(el => {
+                    el.classList.remove('text-neutral-900');
+                    el.classList.add('text-white');
+                });
+
+                // Contact Buttons
+                elements.contactBtn.classList.remove('bg-neutral-900', 'text-white', 'hover:bg-neutral-700');
+                elements.contactBtn.classList.add('bg-white', 'text-neutral-950', 'hover:bg-neutral-200');
+                
+                elements.contactFooter.classList.remove('bg-neutral-900', 'text-white', 'hover:bg-neutral-700');
+                elements.contactFooter.classList.add('bg-white', 'text-neutral-950', 'hover:bg-neutral-200');
+
+                // Modal
+                if(elements.modalContent) {
+                    elements.modalContent.classList.remove('bg-white');
+                    elements.modalContent.classList.add('bg-neutral-900');
+                }
+
+            } else {
+                elements.body.classList.remove('bg-neutral-950', 'text-neutral-200');
+                elements.body.classList.add('bg-neutral-50', 'text-neutral-700');
+
+                // Header
+                elements.header.classList.remove('bg-neutral-950/80', 'border-neutral-800');
+                elements.header.classList.add('bg-white/80', 'border-neutral-200');
+                elements.headerTitle.classList.remove('text-white');
+                elements.headerTitle.classList.add('text-neutral-900');
+
+                // Hero
+                elements.heroTitle.classList.remove('text-white');
+                elements.heroTitle.classList.add('text-neutral-900');
+
+                // Filter
+                elements.filterBar.classList.remove('bg-neutral-950/95', 'border-neutral-800');
+                elements.filterBar.classList.add('bg-neutral-50/95', 'border-neutral-200');
+
+                // Input
+                elements.searchInput.classList.remove('bg-neutral-900', 'border-neutral-800', 'text-white');
+                elements.searchInput.classList.add('bg-white', 'border-neutral-300', 'text-neutral-900');
+
+                // Footer
+                elements.footer.classList.remove('bg-neutral-900', 'border-neutral-800');
+                elements.footer.classList.add('bg-neutral-100', 'border-neutral-200');
+                elements.footerHeadings.forEach(el => {
+                    el.classList.remove('text-white');
+                    el.classList.add('text-neutral-900');
+                });
+
+                // Contact Buttons
+                elements.contactBtn.classList.remove('bg-white', 'text-neutral-950', 'hover:bg-neutral-200');
+                elements.contactBtn.classList.add('bg-neutral-900', 'text-white', 'hover:bg-neutral-700');
+                
+                elements.contactFooter.classList.remove('bg-white', 'text-neutral-950', 'hover:bg-neutral-200');
+                elements.contactFooter.classList.add('bg-neutral-900', 'text-white', 'hover:bg-neutral-700');
+
+                // Modal
+                if(elements.modalContent) {
+                    elements.modalContent.classList.remove('bg-neutral-900');
+                    elements.modalContent.classList.add('bg-white');
+                }
+            }
+            
+            // アイコン切り替え
+            themeIcons.forEach(icon => {
+                icon.setAttribute('data-lucide', isDarkMode ? 'sun' : 'moon');
+            });
+            lucide.createIcons();
+
+            // カテゴリとカードもテーマ依存なので再描画
+            renderCategories();
+            renderProjects();
+        }
+
+        // --- モバイルメニューロジック ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.querySelector('.mobile-menu-icon i');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuIcon.setAttribute('data-lucide', 'x');
+                
+                // モバイルメニューの背景色もテーマに合わせる
+                if(isDarkMode) {
+                    mobileMenu.classList.add('bg-neutral-900', 'border-neutral-800');
+                    mobileMenu.classList.remove('bg-white', 'border-neutral-200');
+                } else {
+                    mobileMenu.classList.add('bg-white', 'border-neutral-200');
+                    mobileMenu.classList.remove('bg-neutral-900', 'border-neutral-800');
+                    // リンクテキストの色調整
+                    document.querySelectorAll('.mobile-link').forEach(l => {
+                        l.classList.remove('text-white');
+                        l.classList.add('text-neutral-900');
+                    });
+                }
+
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // --- モーダルロジック ---
+        window.openModal = function(id) {
+            const project = PORTFOLIO_DATA.find(p => p.id === id);
+            if (!project) return;
+
+            document.getElementById('modal-img').src = project.thumbnail;
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-client').textContent = project.client;
+            document.getElementById('modal-type').textContent = project.type;
+            document.getElementById('modal-year').textContent = project.year;
+            document.getElementById('modal-desc').textContent = project.description;
+            document.getElementById('modal-link').href = project.videoUrl;
+
+            // タグ生成
+            const tagsContainer = document.getElementById('modal-tags');
+            const tagBg = isDarkMode ? 'bg-neutral-800 text-neutral-300 border-neutral-700' : 'bg-neutral-100 text-neutral-600 border-neutral-200';
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="text-xs ${tagBg} px-3 py-1.5 rounded-full border">#${tag}</span>`
+            ).join('');
+
+            // モーダルのテーマ調整
+            const modalHeading = document.querySelector('.modal-heading');
+            const modalText = document.querySelector('.modal-text');
+            const modalExternalLink = document.querySelector('.modal-external-link');
+            const modalMetaVals = document.querySelectorAll('.modal-meta-val');
+            const modalMetaBorder = document.querySelector('.modal-meta-border');
+
+            if(isDarkMode) {
+                modalHeading.classList.add('text-white');
+                modalText.classList.add('text-neutral-400');
+                modalExternalLink.classList.add('text-neutral-400');
+                modalMetaBorder.classList.add('border-neutral-800');
+                modalMetaVals.forEach(v => v.classList.add('text-white'));
+            } else {
+                modalHeading.classList.remove('text-white');
+                modalHeading.classList.add('text-neutral-900');
+                
+                modalText.classList.remove('text-neutral-400');
+                modalText.classList.add('text-neutral-600');
+
+                modalExternalLink.classList.remove('text-neutral-400');
+                modalExternalLink.classList.add('text-neutral-500');
+
+                modalMetaBorder.classList.remove('border-neutral-800');
+                modalMetaBorder.classList.add('border-neutral-200');
+
+                modalMetaVals.forEach(v => {
+                    v.classList.remove('text-white');
+                    v.classList.add('text-neutral-900');
+                });
+            }
+
+            modal.classList.remove('hidden');
+        };
+
+        const closeModal = () => {
+            modal.classList.add('hidden');
+        };
+
+        modalClose.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        // 初期実行
+        init();
+
+    </script>
+</body>
+</html>
